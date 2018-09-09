@@ -9,40 +9,34 @@ def hex_dist(sp, ep):
         dist_dic[n] = set()
         if your_x >= 'A' and your_x <= 'Z' and (your_y - n) >= 1 and (your_y - n) <= 9:
             dist_dic[n].add(your_x + str(your_y - n))
+            print('0-1:', n, your_x + str(your_y - n))
         if your_x >= 'A' and your_x <= 'Z' and (your_y + n) >= 1 and (your_y + n) <= 9:
             dist_dic[n].add(your_x + str(your_y + n))
-        if n % 2 == 0:
-            if chr(ord(your_x) - 2) >= 'A' and chr(ord(your_x) - 2) <= 'Z' and (your_y) >= 0 and (your_y) <= 9:
-                dist_dic[n].add(chr(ord(your_x) - 2) + str(your_y))
-            if chr(ord(your_x) + 2) >= 'A' and chr(ord(your_x) + 2) <= 'Z' and (your_y) >= 0 and (your_y) <= 9:
-                dist_dic[n].add(chr(ord(your_x) + 2) + str(your_y))
-        n_odd = -n
-        if (ord(your_x) - ord('A') + 1) % 2 == 0:
-            n_odd += 1
-        n_even = -n + 1
-        new_elm = n * 2 if n % 2 != 0 else n * 2 - 1
-        for i in range(1, new_elm, 1):
-            k = 0
-            if i % 2 == 0:
-                k = n_even
-                n_even += 1
-            else:
-                k = n_odd
-                n_odd += 1
+            print('0-2:', n, your_x + str(your_y + n))
+        # if n % 2 == 0:
+        #     if chr(ord(your_x) - 2) >= 'A' and chr(ord(your_x) - 2) <= 'Z' and (your_y) >= 0 and (your_y) <= 9:
+        #         dist_dic[n].add(chr(ord(your_x) - 2) + str(your_y))
+        #         print('1-1:', chr(ord(your_x) - 2) + str(your_y))
+        #     if chr(ord(your_x) + 2) >= 'A' and chr(ord(your_x) + 2) <= 'Z' and (your_y) >= 0 and (your_y) <= 9:
+        #         dist_dic[n].add(chr(ord(your_x) + 2) + str(your_y))
+        #         print('1-2:', chr(ord(your_x) + 2) + str(your_y))
+
+        for i in range(n):
             if chr(ord(your_x) - i) >= 'A' and chr(ord(your_x) - i) <= 'Z' and (your_y + k) >= 1 and (your_y + k) <= 9:
                 dist_dic[n].add(chr(ord(your_x) - i) + str(your_y + k))
-                print('1-1:', n, (-i, k), chr(ord(your_x) - i) + str(your_y + k))
+                print('2-1:', n, (-i, k), chr(ord(your_x) - i) + str(your_y + k))
             if chr(ord(your_x) + i) >= 'A' and chr(ord(your_x) + i) <= 'Z' and (your_y + k) >= 1 and (your_y + k) <= 9:
                 dist_dic[n].add(chr(ord(your_x) + i) + str(your_y + k))
-                print('1-2:', n, (i, k), chr(ord(your_x) + i) + str(your_y + k))
+                print('2-2:', n, (i, k), chr(ord(your_x) + i) + str(your_y + k))
             #print(n, (-i, k), (i, k))
 
-        n_odd = 0 if n % 2 != 0 else 1
-        if (ord(your_x) - ord('A') + 1) % 2 == 0:
-            n_odd += 1
+        n_odd = 0
+        #  if n % 2 != 0 else 1
+        # if (ord(your_x) - ord('A')) % 2 == 0:
+        #     n_odd += 1
 
         n_even = 1
-        new_elm = (n * 2 - 1) if n % 2 != 0 else (n * 2 - 2)
+        new_elm = n  # (n * 2 - 1) if n % 2 != 0 else (n * 2 - 2)
         for i in range(new_elm, 0, -1):
             k = 0
             if i % 2 == 0:
@@ -53,10 +47,10 @@ def hex_dist(sp, ep):
                 n_odd += 1
             if chr(ord(your_x) - i) >= 'A' and chr(ord(your_x) - i) <= 'Z' and (your_y + k) >= 1 and (your_y + k) <= 9:
                 dist_dic[n].add(chr(ord(your_x) - i) + str(your_y + k))
-                print('2-1:', n, i, (-i, k), chr(ord(your_x) - i) + str(your_y + k))
+                print('3-1:', n, -i, (-i, k), chr(ord(your_x) - i) + str(your_y + k))
             if chr(ord(your_x) + i) >= 'A' and chr(ord(your_x) + i) <= 'Z' and (your_y + k) >= 1 and (your_y + k) <= 9:
                 dist_dic[n].add(chr(ord(your_x) + i) + str(your_y + k))
-                print('2-2:', n, i, (i, k), chr(ord(your_x) + i) + str(your_y + k))
+                print('3-2:', n, i, (i, k), chr(ord(your_x) + i) + str(your_y + k))
             #print(n, (-i, k), (i, k))
         n += 1
 
@@ -116,7 +110,7 @@ def find_enemy(you, dir, enemy):
 
 
 if __name__ == '__main__':
-    print(hex_dist('A1', 'M4'))
+    print(hex_dist('G4', 'M4'))
     # assert find_enemy("C3", "SE", "A1") == ['B', 3], "T"
     # assert find_enemy('B2', 'S', 'B4') == ['F', 2], "T"
     # assert find_enemy('G5', 'N', 'G4') == ['F', 1], "N-1"
