@@ -3,24 +3,18 @@ def hex_dist(sp, ep):
     your_x = sp[0]
     your_y = int(sp[1])
     dist_dic = {}
-    max_n = 2
-    n = 1
+    max_n = 3
+    n = 3
     while n <= max_n:
         dist_dic[n] = set()
-        if your_x >= 'A' and your_x <= 'Z'\
-                and (your_y - n) >= 1 and (your_y - n) <= 9:
+        if your_x >= 'A' and your_x <= 'Z' and (your_y - n) >= 1 and (your_y - n) <= 9:
             dist_dic[n].add(your_x + str(your_y - n))
-        if your_x >= 'A' and your_x <= 'Z'\
-                and (your_y + n) >= 1 and (your_y + n) <= 9:
+        if your_x >= 'A' and your_x <= 'Z' and (your_y + n) >= 1 and (your_y + n) <= 9:
             dist_dic[n].add(your_x + str(your_y + n))
         if n % 2 == 0:
-            if chr(ord(your_x) - 2 * n) >= 'A' and \
-                chr(ord(your_x) - 2 * n) <= 'Z'\
-                    and (your_y) >= 0 and (your_y) <= 9:
+            if chr(ord(your_x) - 2) >= 'A' and chr(ord(your_x) - 2) <= 'Z' and (your_y) >= 0 and (your_y) <= 9:
                 dist_dic[n].add(chr(ord(your_x) - 2) + str(your_y))
-            if chr(ord(your_x) + 2 * n) >= 'A' and \
-                chr(ord(your_x) + 2 * n) <= 'Z'\
-                    and (your_y) >= 0 and (your_y) <= 9:
+            if chr(ord(your_x) + 2) >= 'A' and chr(ord(your_x) + 2) <= 'Z' and (your_y) >= 0 and (your_y) <= 9:
                 dist_dic[n].add(chr(ord(your_x) + 2) + str(your_y))
         n_odd = -n
         if (ord(your_x) - ord('A') + 1) % 2 == 0:
@@ -35,18 +29,18 @@ def hex_dist(sp, ep):
             else:
                 k = n_odd
                 n_odd += 1
-            if chr(ord(your_x) - i) >= 'A' and chr(ord(your_x) - i) <= 'Z'\
-                    and (your_y + k) >= 1 and (your_y + k) <= 9:
+            if chr(ord(your_x) - i) >= 'A' and chr(ord(your_x) - i) <= 'Z' and (your_y + k) >= 1 and (your_y + k) <= 9:
                 dist_dic[n].add(chr(ord(your_x) - i) + str(your_y + k))
-                print('1-1:', n, (i, k), chr(ord(your_x) - i) + str(your_y + k))
-            if chr(ord(your_x) + i) >= 'A' and chr(ord(your_x) + i) <= 'Z' \
-                    and (your_y + k) >= 1 and (your_y + k) <= 9:
+                print('1-1:', n, (-i, k), chr(ord(your_x) - i) + str(your_y + k))
+            if chr(ord(your_x) + i) >= 'A' and chr(ord(your_x) + i) <= 'Z' and (your_y + k) >= 1 and (your_y + k) <= 9:
                 dist_dic[n].add(chr(ord(your_x) + i) + str(your_y + k))
                 print('1-2:', n, (i, k), chr(ord(your_x) + i) + str(your_y + k))
             #print(n, (-i, k), (i, k))
-        n_odd = 0
+
+        n_odd = 0 if n % 2 != 0 else 1
         if (ord(your_x) - ord('A') + 1) % 2 == 0:
             n_odd += 1
+
         n_even = 1
         new_elm = (n * 2 - 1) if n % 2 != 0 else (n * 2 - 2)
         for i in range(new_elm, 0, -1):
@@ -57,14 +51,12 @@ def hex_dist(sp, ep):
             else:
                 k = n_odd
                 n_odd += 1
-            if chr(ord(your_x) - i) >= 'A' and chr(ord(your_x) - i) <= 'Z'\
-                    and (your_y + k) >= 1 and (your_y + k) <= 9:
+            if chr(ord(your_x) - i) >= 'A' and chr(ord(your_x) - i) <= 'Z' and (your_y + k) >= 1 and (your_y + k) <= 9:
                 dist_dic[n].add(chr(ord(your_x) - i) + str(your_y + k))
                 print('2-1:', n, i, (-i, k), chr(ord(your_x) - i) + str(your_y + k))
-            if chr(ord(your_x) + i) >= 'A' and chr(ord(your_x) + i) <= 'Z'\
-                    and (your_y + k) >= 1 and (your_y + k) <= 9:
+            if chr(ord(your_x) + i) >= 'A' and chr(ord(your_x) + i) <= 'Z' and (your_y + k) >= 1 and (your_y + k) <= 9:
                 dist_dic[n].add(chr(ord(your_x) + i) + str(your_y + k))
-                print('2-1:', n, i, (i, k), chr(ord(your_x) + i) + str(your_y + k))
+                print('2-2:', n, i, (i, k), chr(ord(your_x) + i) + str(your_y + k))
             #print(n, (-i, k), (i, k))
         n += 1
 
