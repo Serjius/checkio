@@ -60,10 +60,16 @@ def hex_dist(sp, ep):
         # legt and righ bars
         sh = -1 * int((n + 1) // 2)
         for i in range(-n - 1, 0, +1):
-            dist_dic[n].add(chr(ord(your_x) - n) + str(your_y + sh))
-            #print('3-1:', n, (-n, sh), chr(ord(your_x) - n) + str(your_y + sh))
-            dist_dic[n].add(chr(ord(your_x) + n) + str(your_y + sh))
-            #print('3-1:', n, (n, sh), chr(ord(your_x) + n) + str(your_y + sh))
+            n1 = chr(ord(your_x) - n)
+            n2 = str(your_y + sh)
+            if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
+                dist_dic[n].add(n1 + n2)
+                print('3-1:', n, (-n, sh), n1 + n2)
+            n1 = chr(ord(your_x) + n)
+            n2 = str(your_y + sh)
+            if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
+                dist_dic[n].add(n1 + n2)
+                print('3-1:', n, (n, sh), n1 + n2)
             sh += 1
 
         n += 1
