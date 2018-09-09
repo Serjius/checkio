@@ -3,76 +3,87 @@ def hex_dist(sp, ep):
     your_x = sp[0]
     your_y = int(sp[1])
     dist_dic = {}
-    max_n = 3
-    n = 1
+    max_n = 5
+    n = 4
     while n <= max_n:
         dist_dic[n] = set()
         n1 = your_x
         n2 = str(your_y - n)
         if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
             dist_dic[n].add(n1 + n2)
-            print('0-1:', n,  n1 + n2)
+            #print('0-1:', n,  n1 + n2)
         n1 = your_x
         n2 = str(your_y + n)
         if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
             dist_dic[n].add(n1 + n2)
-            print('0-2:', n,  n1 + n2)
-            #print('0-2:', n, your_x + str(your_y + n))
-        # if n % 2 == 0:
-        #     if chr(ord(your_x) - 2) >= 'A' and chr(ord(your_x) - 2) <= 'Z' and (your_y) >= 0 and (your_y) <= 9:
-        #         dist_dic[n].add(chr(ord(your_x) - 2) + str(your_y))
-        #         print('1-1:', chr(ord(your_x) - 2) + str(your_y))
-        #     if chr(ord(your_x) + 2) >= 'A' and chr(ord(your_x) + 2) <= 'Z' and (your_y) >= 0 and (your_y) <= 9:
-        #         dist_dic[n].add(chr(ord(your_x) + 2) + str(your_y))
-        #         print('1-2:', chr(ord(your_x) + 2) + str(your_y))
+            #print('0-2:', n,  n1 + n2)
 
         # upper diagonal
         sh = n
+        if (ord(your_x) - ord('A')) % 2 != 0:
+            sh -= 1
         for i in range(1, n):
             n1 = chr(ord(your_x) - i)
             n2 = str(your_y - sh)
             if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
                 dist_dic[n].add(n1 + n2)
-                print('1-1:', n, (-i, -sh), n1 + n2)
+                #print('1-1:', n, (-i, -sh), n1 + n2)
             n1 = chr(ord(your_x) + i)
             n2 = str(your_y - sh)
             if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
                 dist_dic[n].add(n1 + n2)
-                print('1-1:', n, (i, -sh), n1 + n2)
+                #print('1-1:', n, (i, -sh), n1 + n2)
             sh -= 1
 
         # bottom diagonal
         sh = n - 1
+        if (ord(your_x) - ord('A')) % 2 != 0:
+            sh += 1
         for i in range(-n + 1, 0, +1):
             n1 = chr(ord(your_x) - i)
             n2 = str(your_y + sh)
             if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
                 dist_dic[n].add(n1 + n2)
-                print('2-1:', n, (-i, -sh), n1 + n2)
+                #print('2-1:', n, (-i, -sh), n1 + n2)
             n1 = chr(ord(your_x) + i)
             n2 = str(your_y + sh)
             if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
                 dist_dic[n].add(n1 + n2)
-                print('2-1:', n, (i, -sh), n1 + n2)
+                #print('2-1:', n, (i, -sh), n1 + n2)
             if i > 2:
                 sh -= 1
 
         # legt and righ bars
         sh = -1 * int((n + 1) // 2)
+        if n % 2 != 0 and (ord(your_x) - ord('A')) % 2 != 0:
+            sh += 1
         for i in range(-n - 1, 0, +1):
             n1 = chr(ord(your_x) - n)
             n2 = str(your_y + sh)
             if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
                 dist_dic[n].add(n1 + n2)
-                print('3-1:', n, (-n, sh), n1 + n2)
+                #print('3-1:', n, (-n, sh), n1 + n2)
             n1 = chr(ord(your_x) + n)
             n2 = str(your_y + sh)
             if n1 >= 'A' and n1 <= 'Z' and n2 >= '1' and n2 <= '9':
                 dist_dic[n].add(n1 + n2)
-                print('3-1:', n, (n, sh), n1 + n2)
+                #print('3-1:', n, (n, sh), n1 + n2)
             sh += 1
 
         n += 1
+
+    # D3
+    # k1 = ['D2', 'C3', 'C4', 'D4', 'E3', 'E4']
+    # k2 = ['D1', 'C2', 'B2', 'B3', 'B4', 'C5', 'D5', 'E5', 'F4', 'F3', 'F2', 'E2']
+    # r1 = [k for k in dist_dic[1]]
+    # r2 = [k for k in dist_dic[2]]
+    # if sorted(r1) != sorted(k1):
+    #     print('Expc:', sorted(k1))
+    #     print('Test:', sorted(r1))
+
+    # if sorted(r2) != sorted(k2):
+    #     print('Expc:', sorted(k2))
+    #     print('Test:', sorted(r2))
 
     for i in dist_dic.items():
         print(i)
@@ -130,7 +141,9 @@ def find_enemy(you, dir, enemy):
 
 
 if __name__ == '__main__':
-    print(hex_dist('A1', 'J4'))
+    hex_dist("D3", "A1")
+    find_enemy("D3", "NE", "A1")
+    # assert find_enemy("D3", "NE", "A1") == ['L', 4], "Ext2"
     # assert find_enemy("C3", "SE", "A1") == ['B', 3], "T"
     # assert find_enemy('B2', 'S', 'B4') == ['F', 2], "T"
     # assert find_enemy('G5', 'N', 'G4') == ['F', 1], "N-1"
