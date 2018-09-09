@@ -3,7 +3,7 @@ def hex_dist(sp, ep):
     your_x = sp[0]
     your_y = int(sp[1])
     dist_dic = {}
-    max_n = 20
+    max_n = 30
     n = 1
     while n <= max_n:
         dist_dic[n] = set()
@@ -132,16 +132,17 @@ def find_enemy(you, dir, enemy):
     side_n_w_lst = ['F', 'R', 'R', 'R', 'B', 'L', 'L', 'L']
     side_s_e_lst = ['F', 'L', 'L', 'L', 'B', 'R', 'R', 'R']
 
-    if dir in ['N', 'SW', 'NW', 'W']:
+    if dir in ['N', 'SW', 'NW', 'W', 'NE']:
         p = side_n_w_lst[abs(dir_lst.index(dir) - dir_lst.index(w))]
     else:
         p = side_s_e_lst[abs(dir_lst.index(dir) - dir_lst.index(w))]
 
-    print(f'({you}, {dir}, {enemy}) W:{w} P:{p} D:{d}')
+    print(f'({you}, {dir}, {enemy}) dir:{dir} W:{w} P:{p} D:{d}')
     return ([p, d])
 
 
 if __name__ == '__main__':
+    assert find_enemy("A1", "SW", "Z9") == ['B', 25], "Ext3"
     assert find_enemy("C3", "SE", "A1") == ['B', 3], "T"
     assert find_enemy('B2', 'S', 'B4') == ['F', 2], "T"
     assert find_enemy('G5', 'N', 'G4') == ['F', 1], "N-1"
@@ -154,4 +155,5 @@ if __name__ == '__main__':
     assert find_enemy('H3', 'SW', 'E2') == ['R', 3], "right"
     assert find_enemy('A4', 'S', 'M4') == ['L', 12], "true left"
     assert find_enemy("D3", "NE", "A1") == ['L', 4], "Ext2"
+
     print("You are good to go!")
