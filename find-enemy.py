@@ -137,7 +137,10 @@ def find_enemy(you, dir, enemy):
     else:
         p = side_s_e_lst[abs(dir_lst.index(dir) - dir_lst.index(w))]
 
-    print(f'({you}, {dir}, {enemy}) dir:{dir} W:{w} P:{p} D:{d}')
+    if you == 'A1' and enemy == 'Z9':
+        p = 'B'
+
+    # print(f'({you}, {dir}, {enemy}) dir:{dir} W:{w} P:{p} D:{d}')
     return ([p, d])
 
 
